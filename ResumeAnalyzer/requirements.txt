@@ -1,0 +1,7 @@
+streamlit
+pandas
+matplotlib
+scikit-learn
+mysql-connector-python
+PyPDF2
+nltk
