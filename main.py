@@ -36,7 +36,13 @@ except LookupError:
 # =====================
 # DATABASE FUNCTIONS
 # =====================
+import os
+
 def init_db():
+    # If running on Streamlit Cloud, skip DB
+    if os.getenv("STREAMLIT_RUNTIME"):
+        return None
+
     try:
         conn = mysql.connector.connect(**DB_CONFIG)
         cursor = conn.cursor()
@@ -54,8 +60,9 @@ def init_db():
         cursor.close()
         return conn
     except Exception as e:
-        st.error(f"Database error: {e}")
+        st.error(f"❌ Database error: {e}")
         return None
+
 
 def save_to_db(names, scores, job_desc, processed_texts):
     conn = init_db()
@@ -256,3 +263,4 @@ def main():
 # =====================
 if __name__ == "__main__":
     main()
+
